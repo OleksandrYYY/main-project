@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="tabs">
+            <button id="tab-button-date" class="tab-button">Знайди час між датами!</button>
+            <button id="tab-button-holidays" class="tab-button">Отримай список своїх свят!</button>
+        </div>
+        <div id="tab-dates" class="tab-content">
+            <form class="create-form-date">
+                <h2>Введіть дату:</h2>
+                <label for="start-date">
+                    <input type="date" id="start-date" name="date" class="input-date">
+                </label>
+
+                <h2>Введіть ще одну дату:</h2>
+                <label for="end-date">
+                    <input type="date" id="end-date" name="date" class="input-date">
+                </label>
+
+                <div>
+                   <label for="preset">Пресет:</label>
+                   <select id="preset">
+                   <option value="">--Виберіть пресет--</option>
+                   <option value="week">Тиждень (7 днів)</option>
+                   <option value="month">Місяць (30 днів)</option>
+                </select>
+                </div>
+
+                <h2>Виберіть додаткові параметри:</h2>
+
+                <label>
+                    <input type="radio" name="additional-parameters" value="all-days"> Всі дні
+                </label><br>
+                <label>
+                    <input type="radio" name="additional-parameters" value="work-days"> Будні дні
+                </label><br>
+                <label>
+                    <input type="radio" name="additional-parameters" value="weekends"> Вихідні дні
+                </label><br>
+
+                <h2>Виберіть одиниці підрахунку:</h2>
+                <label>
+                    <input type="radio" name="count-data" value="count-days"> Порахувати кількість днів
+                </label><br>
+                <label>
+                    <input type="radio" name="count-data" value="count-hours"> Порахувати кількість годин
+                </label><br>
+                <label>
+                    <input type="radio" name="count-data" value="count-minutes"> Порахувати кількість хвилин
+                </label><br>
+                <label>
+                    <input type="radio" name="count-data" value="count-seconds"> Порахувати кількість секунд
+                </label><br>
+
+                <button class="calculate-result">Обчислити проміжок</button>
+
+                <div class="result" id="result"></div>
+            </form>
+            <table id="result-table-date" border="2">
+                <tr>
+                    <th>Стартова дата</th>
+                    <th>Кінцева дата</th>
+                    <th>Результат</th>
+                </tr>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="tab-holidays" class="tab-content">
+            <div>
+                <form class="create-form-holidays">
+                    <label for="country-select">Вибір країни:</label>
+                    <select name="" id="country-select">
+                        <option value="">Оберіть країну</option>
+                    </select>
+                    <br>
+                    <label for="year-select">Вибір року:</label>
+                    <select id="year-select" disabled>
+                        <option value="">Оберіть рік</option>
+                    </select>
+                </form>
+                <table id="result-table-holidays" border="2">
+                    <tr>
+                        <th>Дата</th>
+                        <button id="sort-holidays-button">Сортувати</button>
+                        <th>Назва свята</th>
+                    </tr>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="script.js" ></script>
+</body>
+</html>

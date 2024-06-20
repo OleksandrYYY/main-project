@@ -1,0 +1,25 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: antiquewhite;
+    /* height: 100vh; */
+    column-gap: 10px;
+}
+
+.tab-content {
+    display: none;
+}
+
+#sort-holidays-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#sort-holidays-button:hover {
+    background-color: #0056b3;
+}
