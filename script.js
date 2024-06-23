@@ -2,9 +2,11 @@
 
 import { CalendarAPI } from "./CalendarAPI.js";
 import { showTab } from "./showTab.js";
+import { requestFetchCountries } from "./countries/requestFetchCountries.js";
+import { getListYears } from "./countries/getListYears.js";
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const tabButtonDate = document.querySelector("#tab-button-date");
     const tabButtonHolidays = document.querySelector("#tab-button-holidays");
 
@@ -36,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // }
 
     tabButtonDate.addEventListener("click", () => showTab("tab-dates"));
-    tabButtonHolidays.addEventListener("click", () => {
+    tabButtonHolidays.addEventListener("click", async () => {
         showTab("tab-holidays");
-        requestFetchCountries();
+        await requestFetchCountries(countrySelect, yearSelect);
     });
 
     getForm.addEventListener("submit", (event) => {
@@ -59,6 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     endDateInput.addEventListener("change", () => {
         startDateInput.max = endDateInput.value;
     });
+
+    await requestFetchCountries(countrySelect, yearSelect);
+    getListYears(yearSelect);
 
 
     function calculateDates() {
@@ -206,40 +211,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    async function requestFetchCountries() {
-        try {
-            const calendarApi = new CalendarAPI();
-            const countries = await calendarApi.getDataCountries();
-            getListCountries(countries.response.countries);
-        } catch (error) {
-            throw new Error("Помилка при отриманні списку країн:", error);
-        }
-    }
+    // async function requestFetchCountries() {
+    //     try {
+    //         const calendarApi = new CalendarAPI();
+    //         const countries = await calendarApi.getDataCountries();
+    //         getListCountries(countries.response.countries);
+    //     } catch (error) {
+    //         throw new Error("Помилка при отриманні списку країн:", error);
+    //     }
+    // }
 
-    function getListCountries(countries) {
+    // function getListCountries(countries) {
 
-        countries.forEach(country => {
-            const option = document.createElement("option");
-            option.value = country['iso-3166'];
-            option.textContent = country.country_name;
-            countrySelect.appendChild(option);
-        });
+    //     countries.forEach(country => {
+    //         const option = document.createElement("option");
+    //         option.value = country['iso-3166'];
+    //         option.textContent = country.country_name;
+    //         countrySelect.appendChild(option);
+    //     });
 
-        countrySelect.addEventListener("change", () => {
-            yearSelect.disabled = !countrySelect.value;
-        });
-    }
+    //     countrySelect.addEventListener("change", () => {
+    //         yearSelect.disabled = !countrySelect.value;
+    //     });
+    // }
 
-    function getListYears() {
-        const currentYear = new Date().getFullYear();
-        for(let year = 2001; year <= 2049; year++) {
-            const option = document.createElement("option")
-            option.value = year;
-            option.textContent = year;
-            yearSelect.appendChild(option);
-        };
-        yearSelect.value = currentYear;
-    }
+    // function getListYears() {
+    //     const currentYear = new Date().getFullYear();
+    //     for(let year = 2001; year <= 2049; year++) {
+    //         const option = document.createElement("option")
+    //         option.value = year;
+    //         option.textContent = year;
+    //         yearSelect.appendChild(option);
+    //     };
+    //     yearSelect.value = currentYear;
+    // }
 
     async function fetchHolidays() {
         const getCountry = countrySelect.value;
@@ -297,10 +302,10 @@ document.addEventListener("DOMContentLoaded", () => {
     getUpdateResult();
 
 
-    (async () => {
-        await requestFetchCountries();
-        getListYears();
-    })();
+    // (async () => {
+    //     await requestFetchCountries();
+    //     getListYears();
+    // })();
 
     countrySelect.addEventListener("change", fetchHolidays);
     yearSelect.addEventListener("change", fetchHolidays);
