@@ -4,6 +4,13 @@ import { CalendarAPI } from "./CalendarAPI.js";
 import { showTab } from "./showTab.js";
 import { requestFetchCountries } from "./countries/requestFetchCountries.js";
 import { getListYears } from "./countries/getListYears.js";
+import { fetchHolidays } from "./holidays/fetchHolidays.js";
+import { getResHolidays } from "./holidays/getResHolidays.js";
+import { sortHolidays } from "./holidays/sortHolidays.js";
+
+const calendarApi = new CalendarAPI();
+const getDataCountries = calendarApi.getDataCountries.bind(calendarApi);
+const getDataHolidays = calendarApi.getDataHolidays.bind(calendarApi);
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -27,20 +34,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     let sortOrder = "ascend";
 
 
-    // function showTab(idTabName) {
-    //     let tabContent = document.querySelectorAll(".tab-content");
-
-    //     tabContent.forEach((elem) => {
-    //         elem.style.display = "none";
-    //     });
-
-    //     document.getElementById(idTabName).style.display = "block";
-    // }
-
     tabButtonDate.addEventListener("click", () => showTab("tab-dates"));
     tabButtonHolidays.addEventListener("click", async () => {
         showTab("tab-holidays");
-        await requestFetchCountries(countrySelect, yearSelect);
+        await requestFetchCountries(getDataCountries, countrySelect, yearSelect);
     });
 
     getForm.addEventListener("submit", (event) => {
@@ -62,8 +59,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         startDateInput.max = endDateInput.value;
     });
 
-    await requestFetchCountries(countrySelect, yearSelect);
+    await requestFetchCountries(getDataCountries, countrySelect, yearSelect);
     getListYears(yearSelect);
+
+    await fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList);
+    getResHolidays(holidaysList, tableHolidays);
 
 
     function calculateDates() {
@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             alert("Будь ласка, введіть кінцеву дату або оберіть пресет.");
             return;
         }
+
+
 
         let differenceDate = 0;
 
@@ -211,102 +213,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // async function requestFetchCountries() {
-    //     try {
-    //         const calendarApi = new CalendarAPI();
-    //         const countries = await calendarApi.getDataCountries();
-    //         getListCountries(countries.response.countries);
-    //     } catch (error) {
-    //         throw new Error("Помилка при отриманні списку країн:", error);
-    //     }
-    // }
 
-    // function getListCountries(countries) {
-
-    //     countries.forEach(country => {
-    //         const option = document.createElement("option");
-    //         option.value = country['iso-3166'];
-    //         option.textContent = country.country_name;
-    //         countrySelect.appendChild(option);
-    //     });
-
-    //     countrySelect.addEventListener("change", () => {
-    //         yearSelect.disabled = !countrySelect.value;
-    //     });
-    // }
-
-    // function getListYears() {
-    //     const currentYear = new Date().getFullYear();
-    //     for(let year = 2001; year <= 2049; year++) {
-    //         const option = document.createElement("option")
-    //         option.value = year;
-    //         option.textContent = year;
-    //         yearSelect.appendChild(option);
-    //     };
-    //     yearSelect.value = currentYear;
-    // }
-
-    async function fetchHolidays() {
-        const getCountry = countrySelect.value;
-        const getYear = yearSelect.value;
-
-        if( getCountry && getYear) {
-            try {
-                const calendarApi = new CalendarAPI();
-                const holidays = await calendarApi.getDataHolidays(getCountry, getYear);
-                holidaysList = holidays.response.holidays
-                getResHolidays(holidaysList);
-            } catch (error) {
-                throw new Error("Помилка при отриманні списку свят:", error);   
-            }
-        }
-    }
-
-    function getResHolidays(holidays) {
-        tableHolidays.innerHTML = "";
-
-        holidays.forEach((holiday) => {
-            const rowElem = document.createElement("tr");
-
-            const holidaysColumnName = document.createElement("td");
-            holidaysColumnName.textContent = holiday.name;
-            rowElem.appendChild(holidaysColumnName);
-            
-            const holidaysColumnDate = document.createElement("td");
-            const date = new Date(holiday.date.iso);
-            const changedFormatDate = date.toLocaleString("uk-UA", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-            });
-            holidaysColumnDate.textContent = changedFormatDate;
-            rowElem.appendChild(holidaysColumnDate);
-
-            tableHolidays.appendChild(rowElem);
-        })
-    }
-
-    function sortHolidays() {
-        holidaysList.sort((a, b) => {
-            const dateA = new Date(a.date.iso);
-            const dateB = new Date(b.date.iso);
-            return sortOrder === "ascend" ? dateB - dateA : dateA - dateB;
-        });
-        sortOrder = sortOrder === "ascend" ? "descend" : "ascend";
-        getResHolidays(holidaysList);
-    }
-
-    sortHolidaysButton.addEventListener("click", sortHolidays);
+    sortHolidaysButton.addEventListener("click", () => {
+        sortOrder = sortHolidays(holidaysList, sortOrder)
+    });
 
     getCalculateResult.addEventListener("click", calculateDates);
     getUpdateResult();
 
-
-    // (async () => {
-    //     await requestFetchCountries();
-    //     getListYears();
-    // })();
-
-    countrySelect.addEventListener("change", fetchHolidays);
-    yearSelect.addEventListener("change", fetchHolidays);
+    countrySelect.addEventListener("change", () => {
+        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList)
+    });
+    yearSelect.addEventListener("change", () => {
+        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList)
+    });
 });
