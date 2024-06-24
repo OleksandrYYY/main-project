@@ -2,16 +2,15 @@
 
 import { CalendarAPI } from "./CalendarAPI.js";
 import { showTab } from "./showTab.js";
-import { requestFetchCountries } from "./countries/requestFetchCountries.js";
-import { getListYears } from "./countries/getListYears.js";
-import { fetchHolidays } from "./holidays/fetchHolidays.js";
-import { getResHolidays } from "./holidays/getResHolidays.js";
-import { sortHolidays } from "./holidays/sortHolidays.js";
+import { requestFetchCountries } from "./tabaCountriesHolidays/countries/requestFetchCountries.js";
+import { getListYears } from "./tabaCountriesHolidays/countries/getListYears.js";
+import { fetchHolidays } from "./tabaCountriesHolidays/holidays/fetchHolidays.js";
+import { getResHolidays } from "./tabaCountriesHolidays/holidays/getResHolidays.js";
+import { sortHolidays } from "./tabaCountriesHolidays/holidays/sortHolidays.js";
 
 const calendarApi = new CalendarAPI();
 const getDataCountries = calendarApi.getDataCountries.bind(calendarApi);
 const getDataHolidays = calendarApi.getDataHolidays.bind(calendarApi);
-console.log(getDataHolidays);
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -65,6 +64,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays);
     getResHolidays(holidaysList, tableHolidays);
+
+    sortHolidaysButton.addEventListener("click", () => {
+        sortOrder = sortHolidays(holidaysList, sortOrder, tableHolidays)
+    });
+
+    countrySelect.addEventListener("change", async () => {
+        await fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
+    });
+    yearSelect.addEventListener("change", async () => {
+        await fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
+    });
 
 
     function calculateDates() {
@@ -215,17 +225,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    sortHolidaysButton.addEventListener("click", () => {
-        sortOrder = sortHolidays(holidaysList, sortOrder, tableHolidays)
-    });
+    // sortHolidaysButton.addEventListener("click", () => {
+    //     sortOrder = sortHolidays(holidaysList, sortOrder, tableHolidays)
+    // });
 
     getCalculateResult.addEventListener("click", calculateDates);
     getUpdateResult();
 
-    countrySelect.addEventListener("change", () => {
-        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
-    });
-    yearSelect.addEventListener("change", () => {
-        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
-    });
+    // countrySelect.addEventListener("change", () => {
+    //     fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
+    // });
+    // yearSelect.addEventListener("change", () => {
+    //     fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
+    // });
 });

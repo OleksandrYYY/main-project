@@ -11,7 +11,7 @@ export async function fetchHolidays(getDataHolidays, countrySelect, yearSelect, 
             holidaysList.push(...holidays.response.holidays);
             getResHolidays(holidaysList, tableHolidays);
         } catch (error) {
-            throw new Error("Помилка при отриманні списку свят:", error);   
+            throw new Error("Помилка при отриманні списку свят:", error); 
         }
-    }
+    } 
 }
