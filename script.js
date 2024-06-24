@@ -11,6 +11,7 @@ import { sortHolidays } from "./holidays/sortHolidays.js";
 const calendarApi = new CalendarAPI();
 const getDataCountries = calendarApi.getDataCountries.bind(calendarApi);
 const getDataHolidays = calendarApi.getDataHolidays.bind(calendarApi);
+console.log(getDataHolidays);
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await requestFetchCountries(getDataCountries, countrySelect, yearSelect);
     getListYears(yearSelect);
 
-    await fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList);
+    await fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays);
     getResHolidays(holidaysList, tableHolidays);
 
 
@@ -215,16 +216,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     sortHolidaysButton.addEventListener("click", () => {
-        sortOrder = sortHolidays(holidaysList, sortOrder)
+        sortOrder = sortHolidays(holidaysList, sortOrder, tableHolidays)
     });
 
     getCalculateResult.addEventListener("click", calculateDates);
     getUpdateResult();
 
     countrySelect.addEventListener("change", () => {
-        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList)
+        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
     });
     yearSelect.addEventListener("change", () => {
-        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList)
+        fetchHolidays(getDataHolidays, countrySelect, yearSelect, holidaysList, tableHolidays)
     });
 });
