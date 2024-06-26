@@ -6,4 +6,4 @@ export function showTab(idTabName) {
     });
 
     document.getElementById(idTabName).style.display = "block";
-}
+};

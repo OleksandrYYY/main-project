@@ -20,4 +20,4 @@ export function getResHolidays(holidays, tableHolidays) {
 
         tableHolidays.appendChild(rowElem);
     })
-}
+};

@@ -8,4 +8,4 @@ export async function requestFetchCountries(getDataCountries, countrySelect, yea
         console.error("Помилка при отриманні списку країн:", error);
         throw new Error("Помилка при отриманні списку країн:", error);
     }
-}
+};

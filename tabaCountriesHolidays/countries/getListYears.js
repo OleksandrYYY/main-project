@@ -7,4 +7,4 @@ export function getListYears(yearSelect) {
         yearSelect.appendChild(option);
     };
     yearSelect.value = currentYear;
-}
+};

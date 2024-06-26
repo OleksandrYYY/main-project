@@ -9,6 +9,9 @@ export class CalendarAPI {
     getDataCountries = async () => {
         try {
             const response = await fetch(`${this.apiUrl}?api_key=${this.apiKey}`);
+            if (!response.ok) {
+                throw new Error(`Error! Status: ${response.status}`);
+            };
             return await response.json();
         } catch (error) {
             throw new Error(error);
@@ -18,9 +21,12 @@ export class CalendarAPI {
     getDataHolidays = async (country, year) => {
         try {
             const response = await fetch(`${API_URL}/holidays?api_key=${this.apiKey}&country=${country}&year=${year}`);
+            if (!response.ok) {
+                throw new Error(`Error! Status: ${response.status}`);
+            };
             return await response.json();
         } catch (error) {
             throw new Error(error);
         }
     }
-}
+};

@@ -9,4 +9,4 @@ export function sortHolidays(holidaysList, sortOrder, tableHolidays) {
     sortOrder = sortOrder === "ascend" ? "descend" : "ascend";
     getResHolidays(holidaysList, tableHolidays);
     return sortOrder;
-}
+};

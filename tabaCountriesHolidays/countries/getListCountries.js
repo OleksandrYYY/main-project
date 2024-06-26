@@ -10,4 +10,4 @@ export function getListCountries(countries, countrySelect, yearSelect) {
     countrySelect.addEventListener("change", () => {
         yearSelect.disabled = !countrySelect.value;
     });
-}
+};
