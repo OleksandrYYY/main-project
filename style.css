@@ -1,25 +1,179 @@
+body {
+    font-family: "Playwrite IT Moderna", cursive;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 20px #0000001a;
+    border-radius: 10px;
+    padding: 20px;
+}
+
 .tabs {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: antiquewhite;
-    /* height: 100vh; */
-    column-gap: 10px;
+    justify-content: space-between;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px 20px;
+    background-color: #94a2b1;
+    color: #fff;
+    border: 5px solid #a98080;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.5s, transform 0.2s;
+}
+
+.tab-button:hover {
+    background-color: #7690ac;
+    transform: scale(1.07);
+}
+
+.tab-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #007bff80;
 }
 
 .tab-content {
     display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+h2, .country-select,
+.year-select {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="date"],
+select,
+input[type="radio"] + span {
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button.calculate-result {
+    padding: 10px 20px;
+    background-color: #7690ac;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button.calculate-result:hover {
+    background-color: #94a2b1;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #7690ac;
+    color: #fff;
 }
 
 #sort-holidays-button {
-    background-color: #007bff;
-    color: white;
+    margin: 10px 0;
+    padding: 8px 16px;
+    background-color: #94a2b1;
+    color: #fff;
     border: none;
-    padding: 5px 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 #sort-holidays-button:hover {
-    background-color: #0056b3;
+    background-color: #7690ac;
+}
+
+
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 10px;
+    }
+
+    .tabs {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .tab-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .tab-content {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    input, select, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .result {
+        font-size: 16px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
 }
