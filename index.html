@@ -12,10 +12,10 @@
 <body>
     <div class="wrapper">
         <div class="tabs">
-            <button id="tab-button-date" class="tab-button">Знайди час між датами!</button>
+            <button id="tab-button-date" class="tab-button active">Знайди час між датами!</button>
             <button id="tab-button-holidays" class="tab-button">Отримай список своїх свят!</button>
         </div>
-        <div id="tab-dates" class="tab-content">
+        <div id="tab-dates" class="tab-content active">
             <form class="create-form-date">
                 <h2>Введіть дату:</h2>
                 <label for="start-date">
@@ -37,7 +37,6 @@
                 </div>
 
                 <h2>Виберіть додаткові параметри:</h2>
-
                 <label>
                     <input type="radio" name="additional-parameters" value="all-days"> Всі дні
                 </label><br>
@@ -67,11 +66,13 @@
                 <div class="result" id="result"></div>
             </form>
             <table id="result-table-date" border="2">
-                <tr>
-                    <th>Стартова дата</th>
-                    <th>Кінцева дата</th>
-                    <th>Результат</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Стартова дата</th>
+                        <th>Кінцева дата</th>
+                        <th>Результат</th>
+                    </tr>
+                </thead>
                 <tbody></tbody>
             </table>
         </div>
@@ -89,11 +90,13 @@
                     </select>
                 </form>
                 <table id="result-table-holidays" border="2">
-                    <tr>
-                        <th>Дата</th>
-                        <button id="sort-holidays-button">Сортувати</button>
-                        <th>Назва свята</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <button id="sort-holidays-button">Сортувати</button>
+                            <th>Назва свята</th>
+                        </tr>
+                    </thead>
                     <tbody></tbody>
                 </table>
             </div>

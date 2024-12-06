@@ -7,7 +7,6 @@ import { getListYears } from "./tabaCountriesHolidays/countries/getListYears.js"
 import { fetchHolidays } from "./tabaCountriesHolidays/holidays/fetchHolidays.js";
 import { getResHolidays } from "./tabaCountriesHolidays/holidays/getResHolidays.js";
 import { sortHolidays } from "./tabaCountriesHolidays/holidays/sortHolidays.js";
-
 import { calculateDates } from "./tabaDates/calculateDates.js";
 import { getUpdateResult } from "./tabaDates/getUpdateResult.js";
 
@@ -88,6 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
         await fetchHolidays(holidaysParams)
     });
 
-    getCalculateResult.addEventListener("click", () => calculateDates(tableDates));
+    // getCalculateResult.addEventListener("click", () => calculateDates(tableDates));
+    getCalculateResult.addEventListener("click", () => {
+        const getTableDates = document.querySelector("#result-table-date");
+        getTableDates.style.display = "table";
+        calculateDates(tableDates);
+    });
     getUpdateResult(tableDates);
 });
